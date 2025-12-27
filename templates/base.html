@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock title %}
+{% block cuerpo %}
+    <h1><a href="{{{url_for(clientes_bp.registrarse)}}">registrars</a><h1>
+    <h1><a href="{{{url_for(clientes_bp.login)}}">logearse</a><h1>
+    {% if login %}
+        <from>
+            <label>Nombre</label>
+            <input type="text" name="nombre">
+            <label>contraseña<label>
+            <input type="pasword" name="contraseña">    
+        </from>
+    {% elif registrar %}
+        <from>
+            <label>Nombre</label>
+            <input type="text" name="nombre">
+            <label>contraseña<label>
+            <input type="pasword" name="contraseña1">
+            <label> confirma contraseña<label>
+            <input type="pasword" name="contraseña2"> 
+        </from>
+
+    {% endif %}
+
+{% endblock cuerpo %}
