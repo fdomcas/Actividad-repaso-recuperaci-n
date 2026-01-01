@@ -1,3 +1,3 @@
-from flask import Blueprintu
+from flask import Blueprint
 
-facturas_bp= Blueprintu("facturas",__name__,template_folder='templates')
+facturas_bp= Blueprint("facturas",__name__,template_folder='templates')

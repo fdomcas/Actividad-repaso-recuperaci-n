@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for 
 import os
-from config import Config, Development, Testing, production
-from clientes import cliente_bp
+from config import Config, Development, Testing
+from clientes.rutas import cliente_bp
 
 app= Flask(__name__)
 
@@ -10,7 +10,7 @@ app.register_blueprint(cliente_bp)
 
 
 
-entorno = os.get_env("development", "development")
+entorno = os.getenv("development", "development")
 
 if entorno == "development":
     app.config.from_object(Development)
@@ -21,4 +21,4 @@ elif entorno == "production":
 
 @app.route("/")
 def inicio():
-    redirect(url_for(cliente_bp.login))
+   return redirect(url_for('cliente_bp.login'))

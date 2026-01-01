@@ -1,13 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block titulo %}{% endblock titulo %}</title>
-</head>
-<body>
-    {% block encabezado %}{% endblock encabezado %}
-    {% block cuerpo %}{% endblock cuerpo %}
-    
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock title %}
+{% block cuerpo %}
+    {% if login %}
+        <h2>{{ahora}}</h2>
+        <form action"{{url_for('cliente_bp.login')}}" method="POST">
+            <label>Nombre</label>
+            <input type="text" name="nombre">
+            <label>contraseña<label>
+            <input type="password" name="contraseña">
+            <h5><a href="{{ url_for('cliente_bp.registro') }}">Registrarse</a></h5>
+            <input type="submit" value="iniciar sesion">
+           {{error}} 
+        </form>
+    {% elif registrar %}
+        <form action="{{url_for('cliente_bp.registro')}}" method="POST">
+            <label>Nombre</label>
+            <input type="text" name="nombre">
+            <label>contraseña<label>
+            <input type="password" name="contraseña1">
+            <label> confirma contraseña<label>
+            <input type="password" name="contraseña2">
+            <input type="submit" value="Registrarse">
+            <h5><a href="{{ url_for('cliente_bp.login') }}">logearse</a><h5>
+        </form>
+
+    {% endif %}
+
+{% endblock cuerpo %}
