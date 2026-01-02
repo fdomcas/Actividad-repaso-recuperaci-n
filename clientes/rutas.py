@@ -20,7 +20,7 @@ def login():
         if not nombre:
             return render_template("usuarios/login.html", login="login")
         elif [nombre, pas] in [[cliente["usuario"], cliente["contraseña"]] for cliente in datos]:
-            reps= make_response(render_template("libros/catalogo.html"))
+            reps= make_response(redirect(url_for('libros_bp.mostrar')))
             reps.set_cookie("cliente", nombre, max_age=60*60*24*7)
             return reps
         else:

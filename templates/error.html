@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block titulo %}{{ error.code }}{% endblock titulo %}
+
+{% block cuerpo %}
+    <h1>ERROR {{ error.code }}</h1>
+
+    {% if error.code == 401 %}
+        <p>Faltan credenciales</p>
+    
+    {% elif error.code == 403 %}
+        <p>El usuario no tiene permisos</p>
+    
+    {% elif error.code == 500 %}
+        <p>Fallo del servidor</p>
+    {% endif %}
+{% endblock cuerpo %}

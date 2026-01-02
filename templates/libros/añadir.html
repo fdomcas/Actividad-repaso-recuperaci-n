@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block titulo %}añadir libro{% endblock titulo %}
+{% block cuerpo %}
+    <form action="{{url_for('libros_bp.agregar_libro')}}" method="POST">
+        <label>Titulo</label>
+        <input type="text" name="titulo">
+        <label>Descripcion
+        <textarea name="descripcion"></textarea>
+        <input type="submit">
+    </form>
+
+
+
+
+
+
+
+    <h5><a href="{{ url_for('cliente_bp.cerrar_sesion') }}">Cerrar sesion</a></h5>
+{% endblock cuerpo %}
