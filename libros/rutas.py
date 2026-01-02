@@ -36,7 +36,6 @@ def agregar_libro():
         lista= lista_cokis()
         if titulo not in [libro["titulo"] for libro in lista ]:
             lista.append({"titulo":titulo, "descripcion":descrp})
-            print(lista)
             resp=  make_response(redirect(url_for('libros_bp.mostrar')))
             resp.set_cookie("libros", json.dumps(lista))
             return resp
@@ -44,7 +43,22 @@ def agregar_libro():
             return render_template('libros/catalogo.html', libros=lista, agregado="Este libro ya esta dentro")
 
 
-@libros_bp.route("/libros", methods= ["POST","GET"])
+@libros_bp.route("/borrar", methods= ["POST","GET"])
 def borrar_libro():
-     if request.method == "GET":
-        return render_template("libros/añadir.html")
+    lista= lista_cokis()
+    if request.method == "GET":
+        return render_template("libros/borrar.html")
+    elif request.method == "POST":
+         titulo= request.form.get("titulo")
+         for ind ,libro in enumerate(lista):
+            if libro["titulo"] == titulo:
+                del lista[ind]
+                resp=  make_response(redirect(url_for('libros_bp.mostrar')))
+                resp.set_cookie("libros", json.dumps(lista))
+                return resp
+            else:
+                return render_template('libros/catalogo.html', libros=lista, agregado="Libro no encontrado")
+                
+            
+    
+             
