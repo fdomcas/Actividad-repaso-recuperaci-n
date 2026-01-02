@@ -29,15 +29,23 @@ def login():
 @cliente_bp.route("/registrar", methods=["POST", "GET"])
 def registro():
     if request.method == "POST":
-        cliente={"usuario":request.form.get("nombre"), "contraseña":request.form.get("contraseña1")} 
-        datos.append(cliente)
-        print(datos)
-        return redirect(url_for("cliente_bp.login"))
+        nombre= request.form.get("nombre")
+        pas1= request.form.get("contraseña1")
+        pas2 = request.form.get("contraseña2")
+        if pas1 == pas2 and type(pas1) == type(pas2):
+            cliente={"usuario":nombre, "contraseña":pas1} 
+            datos.append(cliente)
+            print(datos)
+            return redirect(url_for("cliente_bp.login"))
+        else:
+            return render_template("usuarios/login.html", registrar="registrar", error="las contraseñas no coinciden")
+
+    
     
     elif request.method == "GET":
         return render_template("usuarios/login.html", registrar="registrar")
 
-@cliente_bp.route("/cerrar sesion")
+@cliente_bp.route("/cerrar_sesion")
 def cerrar_sesion():
     cooki= request.cookies.get("cliente")
     if cooki:

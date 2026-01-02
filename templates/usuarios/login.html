@@ -13,6 +13,7 @@
            {{error}} 
         </form>
     {% elif registrar %}
+        {{error}}
         <form action="{{url_for('cliente_bp.registro')}}" method="POST">
             <label>Nombre</label>
             <input type="text" name="nombre">
