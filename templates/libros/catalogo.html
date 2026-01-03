@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {% block titulo %}Catalogo de libros{% endblock titulo %}
 {% block cuerpo %}
-    <h5><a href="{{ url_for('libros_bp.agregar_libro') }}">agregar libro</a></h5>
-    <h5><a href="{{ url_for('libros_bp.borrar_libro') }}">borrar libro</a></h5>
-    <h5><a href="{{ url_for('cliente_bp.cerrar_sesion') }}">Cerrar sesion</a></h5>
-
-    {% for libro in libros  %}
-         <div>
-            <h4>{{libro["titulo"]}}</h4>
-            <p>{{libro["descripcion"]}}</p>
-         </div>
-    {% endfor %}
-    {{agregado}}
-
-
+{% for libro in libros %}
+<div>
+    <h4><a href="{{url_for('libros_bp.detalles', titulo=libro.titulo )}}">{{libro["titulo"]}}</a></h4>
+</div>
+{% endfor %}
+{{agregado}}
 {% endblock cuerpo %}
+
+{% block footer %}
+<div class="footer-actions">
+    <a href="{{ url_for('libros_bp.agregar_libro') }}" class="btn-small">Agregar Libro</a>
+    <a href="{{ url_for('libros_bp.borrar_libro') }}" class="btn-small">Borrar Libro</a>
+    <a href="{{ url_for('cliente_bp.cerrar_sesion') }}" class="btn-small btn-secondary">Cerrar Sesion</a>
+</div>
+{% endblock footer %}

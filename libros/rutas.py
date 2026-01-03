@@ -1,8 +1,6 @@
 from flask import Blueprint, redirect, render_template, url_for, abort, request, make_response
 import json
-
-libros_bp= Blueprint("libros_bp",__name__,template_folder='templates')
-
+from . import libros_bp
 
 
 def lista_cokis():
@@ -60,5 +58,10 @@ def borrar_libro():
                 return render_template('libros/catalogo.html', libros=lista, agregado="Libro no encontrado")
                 
             
-    
-             
+@libros_bp.route("/detalles")
+def detalles():
+    lista= lista_cokis()
+    titulo= request.args.get("titulo")
+    for libro in lista:
+        if libro["titulo"] == titulo: 
+            return render_template('libros/detalles.html', libro=libro)

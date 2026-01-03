@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask
+from . import cliente_bp
 from flask import Flask, redirect, url_for, abort, request, render_template, make_response
 import json
 
@@ -8,7 +8,6 @@ datos= [
 
 
 
-cliente_bp= Blueprint("cliente_bp",__name__, template_folder="templates/login")
 
 @cliente_bp.route("/login", methods=["POST", "GET"])
 def login():
@@ -35,8 +34,9 @@ def registro():
         if pas1 == pas2 and type(pas1) == type(pas2):
             cliente={"usuario":nombre, "contraseña":pas1} 
             datos.append(cliente)
-            print(datos)
-            return redirect(url_for("cliente_bp.login"))
+            reps= make_response(redirect(url_for('libros_bp.mostrar')))
+            reps.set_cookie("cliente", nombre, max_age=60*60*24*7)
+            return reps
         else:
             return render_template("usuarios/login.html", registrar="registrar", error="las contraseñas no coinciden")
 
@@ -51,4 +51,7 @@ def cerrar_sesion():
     if cooki:
         resp= make_response(redirect(url_for("cliente_bp.login")))
         resp.delete_cookie("cliente")
-        return resp 
+        return resp
+    
+
+
